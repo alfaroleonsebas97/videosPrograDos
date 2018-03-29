@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
     e->insertarOrd(12);
     e->insertarOrd(9);
     e->insertarOrd(6);
+    cout << "This is a simple change" << endl;
     delete e;
     return 0;
 }
