@@ -43,6 +43,7 @@ int main(int argc, char** argv) {
     cout << "A: " << a.aHil() << endl;
     b.insertarOrd(7);b.insertarOrd(8);b.insertarOrd(9);b.insertarOrd(10);b.insertarOrd(11);b.insertarOrd(15);b.insertarOrd(17);   
     cout << "B: " << b.aHil() << endl;
+    
     CnjOrdInt c = a*b;
     cout << "C: " << c.aHil() << endl;
     return 0;

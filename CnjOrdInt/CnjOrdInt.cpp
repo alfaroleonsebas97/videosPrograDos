@@ -14,6 +14,8 @@
 #include "CnjOrdInt.h"
 #include <sstream>
 
+shared_ptr<CnjOrdInt> CnjOrdInt::cnj_nvo_ptr(nullptr);
+
 CnjOrdInt::CnjOrdInt():inicio(nullptr) {
 }
 
@@ -138,10 +140,13 @@ CnjOrdInt& CnjOrdInt::operator+(const CnjOrdInt& b) const {
 }
 
 CnjOrdInt& CnjOrdInt::operator*(const CnjOrdInt& b) const {
-    CnjOrdInt* cnj_nvo_ptr = new CnjOrdInt();
+    if (cnj_nvo_ptr != nullptr){
+        cnj_nvo_ptr.reset();
+    }
+    cnj_nvo_ptr = shared_ptr<CnjOrdInt>(new CnjOrdInt());
     shared_ptr<NdoInt>  p, q, ultimo;
     p = inicio;
-    q = inicio;
+    q = b.inicio;
     ultimo = nullptr;
     
     while((p != nullptr)&&(q != nullptr)){
@@ -152,17 +157,20 @@ CnjOrdInt& CnjOrdInt::operator*(const CnjOrdInt& b) const {
                 q = q->sgt;
             }else{
                 if (ultimo == nullptr){
-                    cnj_nvo_ptr->inicio = shared_ptr<NdoInt>(new NdoInt(q->dato));
+                    cnj_nvo_ptr->inicio = shared_ptr<NdoInt>(new NdoInt(p->dato));
                     ultimo = cnj_nvo_ptr->inicio;
                 } else {
-                    ultimo->sgt = shared_ptr<NdoInt>(new NdoInt(q->dato));
+                    ultimo->sgt = shared_ptr<NdoInt>(new NdoInt(p->dato));
+                    ultimo = ultimo->sgt;
                 }
-                p = p->sgt; q->sgt;
+                p = p->sgt; 
+                q = q->sgt;
             }    
         }
     }
     return *cnj_nvo_ptr;
 }
+
 
 CnjOrdInt& CnjOrdInt::operator-(const CnjOrdInt& b) const{
 }

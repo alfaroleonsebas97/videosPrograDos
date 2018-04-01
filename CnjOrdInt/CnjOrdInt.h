@@ -68,6 +68,7 @@ private:
     };  
     
     shared_ptr<NdoInt> inicio;
+    static shared_ptr<CnjOrdInt> cnj_nvo_ptr;
 };
 
 #endif /* CNJORDINT_H */
