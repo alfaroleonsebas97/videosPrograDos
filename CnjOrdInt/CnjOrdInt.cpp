@@ -93,8 +93,8 @@ bool CnjOrdInt::eliminar(int x) {
     if (inicio != nullptr && inicio->dato <= x ){
         if (inicio->dato == x){
             p = inicio->sgt;
-            //delete inicio;
             inicio = p;
+            rsl = true;
         } else {
             while (p != nullptr){ // hay que buscar a x
                 if (p->dato == x){

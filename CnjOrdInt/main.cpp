@@ -37,12 +37,29 @@ int main(int argc, char** argv) {
     e->insertarOrd(9);
     e->insertarOrd(6);
     //delete e;*/
-    
-    CnjOrdInt a,b; 
-    a.insertarOrd(4);a.insertarOrd(9);a.insertarOrd(13);a.insertarOrd(15);a.insertarOrd(18);
+    //bool x =false;
+    CnjOrdInt a,b,d; 
+    a.insertarOrd(18);
+    a.insertarOrd(13);
+    a.insertarOrd(15);
+    a.insertarOrd(9);
     cout << "A: " << a.aHil() << endl;
-    b.insertarOrd(7);b.insertarOrd(8);b.insertarOrd(9);b.insertarOrd(10);b.insertarOrd(11);b.insertarOrd(15);b.insertarOrd(17);   
+    b.insertarOrd(7);
+    b.insertarOrd(8);
+    b.insertarOrd(9);
+    b.insertarOrd(10);
+    b.insertarOrd(11);
+    b.insertarOrd(15);
+    b.insertarOrd(17); 
     cout << "B: " << b.aHil() << endl;
+    
+    d.insertarOrd(0);
+    d.insertarOrd(3);
+    d.insertarOrd(7);
+    d.insertarOrd(11);
+    d.eliminar(11);
+    cout << "D: " << d.aHil() << endl;
+    
     
     CnjOrdInt c = a/b;
     cout << "C: " << c.aHil() << endl;

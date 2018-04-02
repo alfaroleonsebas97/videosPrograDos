@@ -40,21 +40,21 @@ void testInsertarOrd() {
     CnjOrdInt cnjOrdInt;
     bool result = cnjOrdInt.insertarOrd(0); // ( 0 )
     string h = cnjOrdInt.aHil();
-    if (!result || h != "(0)") {
+    if (!result || h != "{0}") {
         std::cout << "%TEST_FAILED% time=0 testname=testInsertarOrd (PrbCnjOrdInt) falló el método insertarOrd con x == 0" << std::endl;
-    };
+    }
 
     result = cnjOrdInt.insertarOrd(3);
     h = cnjOrdInt.aHil();
-     if (!result || h != "(0,3)") {
+     if (!result || h != "{0,3}") {
         std::cout << "%TEST_FAILED% time=0 testname=testInsertarOrd (PrbCnjOrdInt) falló el método insertarOrd con x == 0 , 3" << std::endl;
-    };
+    }
     
     result = cnjOrdInt.insertarOrd(7);
     h = cnjOrdInt.aHil();
-    if (!result || h != "(0,3, 7)") {
+    if (!result || h != "{0,3,7}") {
         std::cout << "%TEST_FAILED% time=0 testname=testInsertarOrd (PrbCnjOrdInt) falló el método insertarOrd con x == 0 , 3, 7" << std::endl;
-    };
+    }
 }
 
 void testEliminar() {
@@ -69,28 +69,30 @@ void testEliminar() {
     cnjOrdInt.insertarOrd(7);
     cnjOrdInt.insertarOrd(11); // (0,3,7,11)
     result = cnjOrdInt.eliminar(5);
-        if (result) {
+    if (result) {
         std::cout << "%TEST_FAILED% time=0 testname=testEliminar (PrbCnjOrdInt) falló método eliminar(5) con conjunto (0,3,7,11)" << std::endl;
     }
     
     CnjOrdInt cnjOrdInt2(cnjOrdInt);
     result = cnjOrdInt2.eliminar(0);
-     string h = cnjOrdInt2.aHil();
-    if (result || h != "(3,7,11)") {
+    string h = cnjOrdInt2.aHil();
+    if (!result || h != "{3,7,11}") {
         std::cout << "%TEST_FAILED% time=0 testname=testEliminar (PrbCnjOrdInt) falló método eliminar(0) con conjunto (0,3,7,11)" << std::endl;
     }
     
-        CnjOrdInt cnjOrdInt3(cnjOrdInt);
+    CnjOrdInt cnjOrdInt3(cnjOrdInt);
     result = cnjOrdInt3.eliminar(11);
+    h = "";
     h = cnjOrdInt3.aHil();
-    if (result || h != "(0,3,7)") {
+    if (!result || h != "{0,3,7}") {
         std::cout << "%TEST_FAILED% time=0 testname=testEliminar (PrbCnjOrdInt) falló método eliminar(11) con conjunto (0,3,7,11)" << std::endl;
     }
     
-            CnjOrdInt cnjOrdInt4(cnjOrdInt);
+    CnjOrdInt cnjOrdInt4(cnjOrdInt);
     result = cnjOrdInt4.eliminar(7);
+    h = "";
     h = cnjOrdInt4.aHil();
-    if (result || h != "(0,3,11)") {
+    if (!result || h != "{0,3,11}") {
         std::cout << "%TEST_FAILED% time=0 testname=testEliminar (PrbCnjOrdInt) falló método eliminar(7) con conjunto (0,3,7,11)" << std::endl;
     }
 }
@@ -153,13 +155,13 @@ void testUnion() {
     
     CnjOrdInt r2 = a+c; // --> (4,8,12,14)
     h = r2.aHil(); 
-    if (h != "(4,8,12,14)"){
+    if (h != "{4,8,12,14}"){
     std::cout << "%TEST_FAILED% time=0 testname=testUnion (PrbCnjOrdInt) falló la union de (4, 8,12) y (14)" << std::endl;
     }
     
     CnjOrdInt r3 = a+d; // (4,5,8,9,12)
     h = r3.aHil(); 
-    if (h != "(4,5,8,9,12)"){
+    if (h != "{4,5,8,9,12}"){
     std::cout << "%TEST_FAILED% time=0 testname=testUnion (PrbCnjOrdInt) falló la union de (4, 8,12) y (14)" << std::endl;
     }
 }
@@ -184,14 +186,14 @@ void testInterseccion(){
     
     CnjOrdInt r1 = a*b;
     string h = r1.aHil();
-    if (h != "()"){
+    if (h != "{}"){
     std::cout << "%TEST_FAILED% time=0 testname=testInsterseccion (PrbCnjOrdInt) falló la interseccion de (4,8,10,12) con  (5,7,9)" << std::endl;
     }
     
     c.insertarOrd(4); 
     CnjOrdInt r2 = a*c;
     h = r2.aHil();
-    if (h != "(4)"){
+    if (h != "{4}"){
     std::cout << "%TEST_FAILED% time=0 testname=testInsterseccion (PrbCnjOrdInt) falló la interseccion de (4,8,10,12) con  (4)" << std::endl;
     }
     
@@ -200,7 +202,7 @@ void testInterseccion(){
     
     CnjOrdInt r3 = a*d;
     h = r3.aHil();
-    if (h != "(8,10)"){
+    if (h != "{8,10}"){
     std::cout << "%TEST_FAILED% time=0 testname=testInsterseccion (PrbCnjOrdInt) falló la interseccion de (4,8,10,12) con  (8,10)" << std::endl;
     }
     
@@ -210,7 +212,7 @@ void testInterseccion(){
     
     CnjOrdInt r4 = a*e;
     h = r4.aHil();
-    if (h != "(8,10,12)"){
+    if (h != "{8,10,12}"){
     std::cout << "%TEST_FAILED% time=0 testname=testInsterseccion (PrbCnjOrdInt) falló la interseccion de (4,8,10,12) con  (8,10,12)" << std::endl;
     }
 }
@@ -303,6 +305,9 @@ int main(int argc, char** argv) {
     testInterseccion();
     std::cout << "%TEST_FINISHED% time=0 testInterseccion (PrbCnjOrdInt)" << std::endl;
     
+    std::cout << "%TEST_STARTED% testDiferencia (PrbCnjOrdInt)" << std::endl;
+    testInterseccion();
+    std::cout << "%TEST_FINISHED% time=0 testDiferencia (PrbCnjOrdInt)" << std::endl;
     
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
