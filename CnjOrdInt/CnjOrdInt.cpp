@@ -137,6 +137,48 @@ bool CnjOrdInt::buscar(int x) const {
 }
 
 CnjOrdInt& CnjOrdInt::operator+(const CnjOrdInt& b) const {
+    if (cnj_nvo_ptr != nullptr){
+        cnj_nvo_ptr.reset();
+    }
+    cnj_nvo_ptr = shared_ptr<CnjOrdInt>(new CnjOrdInt());
+    shared_ptr<NdoInt>  p, q, ultimo;
+    p = inicio;
+    q = b.inicio;
+    ultimo = nullptr;
+    int addMe = -1;
+        while((p != nullptr) || (q != nullptr)){
+            if(p == nullptr){
+                addMe = q->dato;
+                q = q->sgt;
+            }else{
+                if( q == nullptr){
+                    addMe = p->dato;
+                    p = p->sgt;
+                }else{
+                    if(p->dato < q->dato){
+                        addMe = p->dato;
+                        p = p->sgt;
+                    } else {
+                        if(p->dato > q->dato){
+                            addMe = q->dato;
+                            q = q->sgt;
+                        } else{
+                            addMe = p->dato;
+                            p = p->sgt;
+                            q = q->sgt;
+                        }
+                    }
+                }
+            }
+            if (ultimo == nullptr){
+                cnj_nvo_ptr->inicio = shared_ptr<NdoInt>(new NdoInt(addMe));
+                ultimo = cnj_nvo_ptr->inicio;
+            }else{
+                ultimo->sgt = shared_ptr<NdoInt>(new NdoInt(addMe));
+                ultimo = ultimo->sgt;
+            }
+        }
+        return *cnj_nvo_ptr;     
 }
 
 CnjOrdInt& CnjOrdInt::operator*(const CnjOrdInt& b) const {
@@ -171,11 +213,99 @@ CnjOrdInt& CnjOrdInt::operator*(const CnjOrdInt& b) const {
     return *cnj_nvo_ptr;
 }
 
-
 CnjOrdInt& CnjOrdInt::operator-(const CnjOrdInt& b) const{
+    if (cnj_nvo_ptr != nullptr){
+        cnj_nvo_ptr.reset();
+    }
+    cnj_nvo_ptr = shared_ptr<CnjOrdInt>(new CnjOrdInt());
+    shared_ptr<NdoInt>  p, q, ultimo;
+    p = inicio;
+    q = b.inicio;
+    ultimo = nullptr;
+    int addMe = -1;
+    bool addIt;
+    while(p != nullptr){
+        addIt = true;
+        if(q == nullptr){
+            addMe = p->dato;
+            p = p->sgt;
+        }else{
+            if(p->dato < q->dato){
+                addMe = p->dato;
+                p = p->sgt;
+            }else{
+                if(p->dato == q->dato){
+                    addIt = false;
+                    addMe = -1;
+                    p = p->sgt;
+                    q =q->sgt;
+                }else{
+                    addIt = false;
+                    addMe = -1;
+                    q = q->sgt;
+                }
+            }
+        }
+        if(addIt){
+            if (ultimo == nullptr){
+                cnj_nvo_ptr->inicio = shared_ptr<NdoInt>(new NdoInt(addMe));
+                ultimo = cnj_nvo_ptr->inicio;
+            }else{
+                ultimo->sgt = shared_ptr<NdoInt>(new NdoInt(addMe));
+                ultimo = ultimo->sgt;
+            }
+        }
+    }
+    return *cnj_nvo_ptr;
 }
 
 CnjOrdInt& CnjOrdInt::operator/(const CnjOrdInt& b) const{
+        if (cnj_nvo_ptr != nullptr){
+        cnj_nvo_ptr.reset();
+    }
+    cnj_nvo_ptr = shared_ptr<CnjOrdInt>(new CnjOrdInt());
+    shared_ptr<NdoInt>  p, q, ultimo;
+    p = inicio;
+    q = b.inicio;
+    ultimo = nullptr;
+    int addMe = -1;
+    bool addIt;
+    while((p != nullptr) || (q != nullptr)){
+        addIt = true;
+        if(p == nullptr){
+            addMe = q->dato;
+            q = q->sgt;
+        }else{
+            if(q == nullptr){
+                addMe = p->dato;
+                p = p->sgt;
+            }else{
+                if(p->dato < q->dato){
+                    addMe = p->dato;
+                    p = p->sgt;
+                }else{
+                    if(p->dato > q->dato){
+                        addMe = q->dato;
+                        q = q->sgt;
+                    }else{
+                        p = p->sgt;
+                        q = q->sgt;
+                        addIt = false;
+                    }
+                }
+            }
+        }
+        if(addIt){
+            if (ultimo == nullptr){
+                cnj_nvo_ptr->inicio = shared_ptr<NdoInt>(new NdoInt(addMe));
+                ultimo = cnj_nvo_ptr->inicio;
+            }else{
+                ultimo->sgt = shared_ptr<NdoInt>(new NdoInt(addMe));
+                ultimo = ultimo->sgt;
+            }
+        }
+    }
+    return *cnj_nvo_ptr;   
 }
 
 string CnjOrdInt::aHil() {
